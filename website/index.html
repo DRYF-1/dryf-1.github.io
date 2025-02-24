@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرسال Webhook</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>إرسال Webhook</h2>
+        <label for="embedName">اسم الإيمبد:</label>
+        <input type="text" id="embedName" placeholder="أدخل اسم الإيمبد">
+        
+        <label for="embedDescription">وصف الإيمبد:</label>
+        <textarea id="embedDescription" placeholder="أدخل وصف الإيمبد"></textarea>
+        
+        <label for="embedImage">صورة الإيمبد (رابط):</label>
+        <input type="text" id="embedImage" placeholder="أدخل رابط الصورة">
+        
+        <label for="embedColor">لون الإيمبد (كود اللون):</label>
+        <input type="text" id="embedColor" placeholder="أدخل لون الإيمبد">
+        
+        <label for="webhookURL">رابط روم Webhook:</label>
+        <input type="text" id="webhookURL" placeholder="أدخل رابط Webhook">
+        
+        <button onclick="sendWebhook()">إرسال</button>
+    </div>
+
+    <script>
+        function sendWebhook() {
+            const embedName = document.getElementById('embedName').value;
+            const embedDescription = document.getElementById('embedDescription').value;
+            const embedImage = document.getElementById('embedImage').value;
+            const embedColor = document.getElementById('embedColor').value;
+            const webhookURL = document.getElementById('webhookURL').value;
+
+            const embedData = {
+                embeds: [
+                    {
+                        title: embedName,
+                        description: embedDescription,
+                        image: {
+                            url: embedImage
+                        },
+                        color: parseInt(embedColor.replace("#", ""), 16)
+                    }
+                ]
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(embedData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('تم إرسال الإيمبد بنجاح!');
+            })
+            .catch(error => {
+                alert('حدث خطأ أثناء إرسال الإيمبد.');
+            });
+        }
+    </script>
+</body>
+</html>
