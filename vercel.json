@@ -1,0 +1,14 @@
+{  
+  "version": 2,  
+  "builds": [{"src": "api/phish.js", "use": "@vercel/node"}],  
+  "routes": [  
+    {  
+      "src": "/api/phish",  
+      "dest": "/api/phish.js",  
+      "headers": {  
+        "Cache-Control": "no-cache",  
+        "X-Phantom": "active"  
+      }  
+    }  
+  ]  
+}  
