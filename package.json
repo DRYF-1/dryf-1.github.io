@@ -1,9 +1,0 @@
-{  
-  "name": "phantom-separated",  
-  "version": "1.0.0",  
-  "dependencies": {  
-    "express": "^4.18.2",  
-    "axios": "^1.6.2",  
-    "crypto-js": "^4.1.1"  
-  }  
-}  
